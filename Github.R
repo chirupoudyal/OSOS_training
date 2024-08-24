@@ -198,3 +198,24 @@ boxplot(response~group, data=test.df)
 
 #More than two groups (ANOVA)
 group.aov=as.factor (rep(letters[1:3], length.out = 300))
+response.aov=rnorm(300, mean = c(10,25,35), sd=2)
+hist(response.aov, breaks=20)
+test.aov = data.frame(group.aov, response.aov)
+str(test.aov)
+
+test.aov.fit = aov(response.aov~group.aov, data=test.aov)
+plot(test.aov.fit)
+
+#Tukey Post-hoc test
+TukeyHSD(test.aov.fit)
+
+#AOV and post-hoc where not everything is different
+group.aov2=as.factor (rep(letters[1:3], length.out = 300))
+response.aov2=rnorm(300, mean = c(10, 10.5, 35), sd=c(2, 6, 1.5))
+hist(response.aov2, breaks = 20)
+
+test.aov2 <- data.frame(group.aov2, response.aov2)
+test.aov.fit2 <- aov(response.aov2 ~ group.aov2,
+                     data = test.aov2)
+summary(test.aov.fit2)
+TukeyHSD(test.aov.fit2)
