@@ -166,3 +166,35 @@ hist(x=y, col="red", breaks=22, add=TRUE)
 
 ##Independent samples
 #T-Test (parametric)
+t.test(x = x, y = y)
+
+#Wilcoxon-Mann-Whitney Test (non-parametric)
+wilcox.test(x = x, y = y)
+
+##Dependent Samples
+#paired T-Test (parametric)
+t.test(x = x, y = y, paired=T)
+
+#paired wilcoxon-Man-Whitney Test (non-parametric)
+wilcox.test(x = x, y = y, paired=T)
+
+###simulating character/group data
+rep(letters[1:2])
+group = rep(letters[1:2], length.out= 200)
+
+set.seed(6)
+response = rnorm(100, mean = c(10,11), sd=2)
+test.df = data.frame(group, response)
+str(test.df)
+
+###T-test and Wilcoxon with groups
+#T-test
+t.test(response~group, data=test.df)
+boxplot(response~group, data=test.df)
+
+#Wilcoxon test
+wilcox.test(response~group, data=test.df)
+boxplot(response~group, data=test.df)
+
+#More than two groups (ANOVA)
+group.aov=as.factor (rep(letters[1:3], length.out = 300))
